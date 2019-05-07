@@ -1,4 +1,10 @@
+resource "vault_mount" "transit" {
+  path        = "transit"
+  type        = "transit"
+}
+
 resource "vault_generic_endpoint" "key_one" {
+  depends_on = ["vault_mount.transit"]
   path = "/transit/keys/${var.key_name}"
 
   data_json = <<EOT
